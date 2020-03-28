@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics" Version="2.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.ResponseCaching" Version="2.2.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.*" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Res\Swagger\favicon-16x16.png" />
+    <EmbeddedResource Include="Res\Swagger\favicon-32x32.png" />
+    <EmbeddedResource Include="Res\Swagger\index.html" />
+    <EmbeddedResource Include="Res\Swagger\oauth2-redirect.html" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui-bundle.js" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui-bundle.js.map" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui-standalone-preset.js" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui-standalone-preset.js.map" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui.css" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui.css.map" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui.js" />
+    <EmbeddedResource Include="Res\Swagger\swagger-ui.js.map" />
+    <EmbeddedResource Include="Res\Redoc\index.html">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Include="Middleware.fs" />
+    <Compile Include="AppBuilderExtensions.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Primitives" Version="3.1.3" />
+    <PackageReference Include="TaskBuilder.fs" Version="2.1.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.1" />
+  </ItemGroup>
+
+</Project>
