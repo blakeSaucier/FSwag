@@ -6,7 +6,7 @@ open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
-open FSwag.AppBuilderExtensions
+open FSwag
 
 let webApp =
     choose [
@@ -21,7 +21,7 @@ let staticFileOptions =
 let configureApp (app : IApplicationBuilder) =
     // Add Giraffe to the ASP.NET Core pipeline
     app.UseStaticFiles(staticFileOptions)
-        .UseSwaggerUI()
+        .UseSwaggerUI
         .UseGiraffe webApp
 
 let configureServices (services : IServiceCollection) =

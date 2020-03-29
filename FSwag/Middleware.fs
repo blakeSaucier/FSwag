@@ -1,4 +1,5 @@
-﻿module FSwag.Middleware
+﻿[<AutoOpen>]
+module FSwag.Middleware
 
 open System
 open System.IO;

@@ -1,4 +1,5 @@
-﻿module FSwag.AppBuilderExtensions
+﻿[<AutoOpen>]
+module FSwag.AppBuilderExtensions
 
 open Middleware
 open Microsoft.AspNetCore.Builder
@@ -6,7 +7,7 @@ open Microsoft.Extensions.FileProviders
 open System.Reflection
 
 type IApplicationBuilder with
-    member this.UseSwaggerUI () =
+    member this.UseSwaggerUI =
         let fileProvider = EmbeddedFileProvider(typeof<SwaggerMiddleware>.GetTypeInfo().Assembly, "FSwag.Res.Swagger")
         let fileServerOptions =
             let options = FileServerOptions()
