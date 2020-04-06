@@ -10,22 +10,29 @@ open FSwag
 
 let webApp =
     choose [
-        route "/ping"   >=> text "pong"
-        route "/"       >=> htmlFile "/pages/index.html" ]
+        route "/ping"    >=> text "pong"
+        route "/"        >=> htmlFile "/pages/index.html" ]
 
 let staticFileOptions =
     let staticFileOptions = StaticFileOptions()
     staticFileOptions.ServeUnknownFileTypes <- true
     staticFileOptions
 
+let useSwagger (app: IApplicationBuilder) =
+    app.UseSwaggerUI
+
+let useGiraffe (app: IApplicationBuilder) =
+    app.UseGiraffe webApp
+    app
+
 let configureApp (app : IApplicationBuilder) =
-    // Add Giraffe to the ASP.NET Core pipeline
+    let defaultRedoc = useReDoc None
     app.UseStaticFiles(staticFileOptions)
-        .UseSwaggerUI
-        .UseGiraffe webApp
+    |> defaultRedoc
+    |> useGiraffe
+    |> ignore
 
 let configureServices (services : IServiceCollection) =
-    // Add Giraffe dependencies
     services.AddGiraffe() |> ignore
 
 [<EntryPoint>]
