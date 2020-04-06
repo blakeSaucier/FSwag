@@ -18,17 +18,19 @@ let staticFileOptions =
     staticFileOptions.ServeUnknownFileTypes <- true
     staticFileOptions
 
-let useSwagger (app: IApplicationBuilder) =
-    app.UseSwaggerUI
-
 let useGiraffe (app: IApplicationBuilder) =
     app.UseGiraffe webApp
     app
 
+let useRedoc (app: IApplicationBuilder) =
+    app.UseReDoc None
+
+let useSwagger (app: IApplicationBuilder) =
+    app.UseSwaggerUI None
+
 let configureApp (app : IApplicationBuilder) =
-    let defaultRedoc = useReDoc None
     app.UseStaticFiles(staticFileOptions)
-    |> defaultRedoc
+    |> useRedoc
     |> useGiraffe
     |> ignore
 

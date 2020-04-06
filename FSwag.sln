@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSwag", "FSwag\FSwag.fsproj", "{B87D1D3E-8554-42C8-A116-3F9739A53039}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSwag.Sample.Api", "Sample\FSwag.Sample.Api\FSwag.Sample.Api.fsproj", "{CE262200-22EC-4E4D-B684-A0ED21078288}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FSwag.Sample.Api", "Sample\FSwag.Sample.Api\FSwag.Sample.Api.fsproj", "{CE262200-22EC-4E4D-B684-A0ED21078288}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3D4A0764-A527-472C-B1DB-B7F9731143D9}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
