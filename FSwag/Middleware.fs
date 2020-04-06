@@ -7,13 +7,10 @@ open FSharp.Control.Tasks.V2
 open Microsoft.Extensions.Primitives
 open Microsoft.AspNetCore.Http
 
-let private setResponseHeaders (context: HttpContext) =
-    context.Response.Headers.["Content-Type"] <- StringValues("text/html; charset=utf-8")
-    context.Response.StatusCode <- 200
-
 let private writeResponse (context: HttpContext) document =
     task {
-        do setResponseHeaders context
+        do context.Response.Headers.["Content-Type"] <- StringValues("text/html; charset=utf-8")
+        do context.Response.StatusCode <- StatusCodes.Status200OK
         do! context.Response.WriteAsync(document)
     }
 
@@ -50,15 +47,24 @@ type ReDocMiddleware (next: RequestDelegate, options: FSwagOptions) =
                 let! redoc = redocDocument options
                 do! writeResponse ctx redoc
             else
-                next.Invoke ctx |> ignore
+                do! next.Invoke ctx
         }
 
 type SwaggerMiddleware (next: RequestDelegate, options: FSwagOptions) =
-    member this.Invoke(ctx: HttpContext) =
+    member _.Invoke(ctx: HttpContext) =
         task {
             if isMatch ctx.Request.Path options.SwaggerUrl then
                 let! swaggerUi = swaggerUiDocument options
                 do! writeResponse ctx swaggerUi
             else
-                next.Invoke ctx |> ignore
+                do! next.Invoke ctx
+        }
+
+type RedirectToSwaggerMiddleware (next: RequestDelegate, options: FSwagOptions) =
+    member _.Invoke(ctx: HttpContext) =
+        task {
+            if isMatch ctx.Request.Path "" then
+                do ctx.Response.Redirect(options.SwaggerUrl, false)
+            else
+                do! next.Invoke ctx
         }

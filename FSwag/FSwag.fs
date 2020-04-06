@@ -7,4 +7,4 @@ type FSwagOptions =
 
 let defaultOptions =
     { DocumentLocation = "/swagger.json"
-      SwaggerUrl = "/swagger" }
+      SwaggerUrl = "/swagger-ui" }

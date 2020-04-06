@@ -15,15 +15,15 @@ type IApplicationBuilder with
             options.FileProvider <- fileProvider
             options
 
-        options
-        |> Option.getOrElse defaultOptions
-        |> this.UseFileServer(fileServerOptions)
-            .UseMiddleware<SwaggerMiddleware>
+        let settings = Option.getOrElse defaultOptions options
+        this.UseFileServer(fileServerOptions)
+            .UseMiddleware<RedirectToSwaggerMiddleware>(settings)
+            .UseMiddleware<SwaggerMiddleware>(settings)
             
     member this.UseReDoc options =
-        options 
-        |> Option.getOrElse defaultOptions
-        |> this.UseMiddleware<ReDocMiddleware>
+        let settings = Option.getOrElse defaultOptions options
+        this.UseMiddleware<RedirectToSwaggerMiddleware>(settings)
+            .UseMiddleware<ReDocMiddleware>(settings)
 
 let useSwaggerUi options (app: IApplicationBuilder) = app.UseSwaggerUI options
 
